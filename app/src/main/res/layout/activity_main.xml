@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="example.bullyboo.ru.myapplication.MainActivity">
+
+    <example.bullyboo.ru.myapplication.CircleSeekBar
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true"
+        app:maxValue="100"
+        app:value="9"
+        app:dotRadius="10dp"
+        app:backgroundCircleLineColor="#ff0000"
+        app:progressCircleLineColor="#00ff00"
+        app:backgroundCircleLineWidth="10dp"
+        app:progressCircleLineWidth="10dp"
+        app:dotColor="#000000"
+        app:isClockwise="false"/>
+
+</RelativeLayout>
