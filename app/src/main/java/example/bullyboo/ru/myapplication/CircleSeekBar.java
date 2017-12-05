@@ -310,7 +310,7 @@ public class CircleSeekBar extends FrameLayout {
                     if(angel >= 360){
                         value = maxValue;
                     } else if(angel <= 0){
-                        value = 0;
+                        value = minValue;
                     } else {
                         value = value((float) angel);
                     }
@@ -321,7 +321,7 @@ public class CircleSeekBar extends FrameLayout {
                         value = maxValue;
                     } else if(totalAngel <= 0){
                         totalAngel = 0;
-                        value = 0;
+                        value = minValue;
                     } else {
                         value = value((float) angel);
                     }
