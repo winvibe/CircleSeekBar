@@ -6,18 +6,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="example.bullyboo.ru.myapplication.MainActivity">
 
-    <example.bullyboo.ru.myapplication.CircleSeekBar
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_centerInParent="true"
-        app:maxValue="100"
-        app:value="9"
-        app:dotRadius="10dp"
-        app:backgroundCircleLineColor="#ff0000"
-        app:progressCircleLineColor="#00ff00"
-        app:backgroundCircleLineWidth="10dp"
-        app:progressCircleLineWidth="10dp"
-        app:dotColor="#000000"
-        app:isClockwise="false"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <example.bullyboo.ru.myapplication.CircleSeekBar
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                app:minValue="70"
+                app:maxValue="100"
+                app:value="80"
+                app:dotRadius="10dp"
+                app:backgroundCircleLineColor="#ff0000"
+                app:progressCircleLineColor="#00ff00"
+                app:backgroundCircleLineWidth="10dp"
+                app:progressCircleLineWidth="10dp"
+                app:dotColor="#000000"
+                app:isClockwise="false"/>
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

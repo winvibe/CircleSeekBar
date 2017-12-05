@@ -29,7 +29,8 @@ public class CircleSeekBar extends FrameLayout {
     private static final int BLUE_COLOR = 0xff007eff;
 
     private static final int DEFAULT_MAX_VALUE = 100;
-    private static final int DEFAULT_VALUE = 50;
+    private static final int DEFAULT_MIN_VALUE = 0;
+    private static final int DEFAULT_VALUE = 0;
 
     private float backgroundCircleLineWidth;
     private float progressCircleLineWidth;
@@ -42,6 +43,7 @@ public class CircleSeekBar extends FrameLayout {
     private int dotColor;
 
     private int maxValue;
+    private int minValue;
     private int value;
 
     private boolean showCounter;
@@ -115,6 +117,8 @@ public class CircleSeekBar extends FrameLayout {
 
         maxValue = array.getInt(
                 R.styleable.CircleSeekBar_maxValue, DEFAULT_MAX_VALUE);
+        minValue = array.getInt(
+                R.styleable.CircleSeekBar_minValue, DEFAULT_MIN_VALUE);
 
         value = array.getInt(
                 R.styleable.CircleSeekBar_value, DEFAULT_VALUE);
@@ -286,9 +290,9 @@ public class CircleSeekBar extends FrameLayout {
                     }
 
                     if(Math.abs(previousAngel - angel) > 180f){
-                            if(value != 0 && value != maxValue){
+                            if(value != minValue && value != maxValue){
                             value = maxValue - previousAngel > maxValue / 2 ?
-                                    0 : maxValue;
+                                    minValue : maxValue;
 
                             textView.setText(String.valueOf(value));
                             invalidate();
@@ -297,19 +301,7 @@ public class CircleSeekBar extends FrameLayout {
                         return false;
                     }
 
-                    float shift;
-
-//                    if(Math.abs(angel - previousAngel) > 300){
-//                        shift = 360 - totalAngel % 360;
-//                        if(angel < 50){
-//                            shift += angel;
-//                        } else {
-//                            shift -= angel;
-//                        }
-////                        return false;
-//                    } else {
-                        shift = (float) (angel - previousAngel);
-//                    }
+                    float shift = (float) (angel - previousAngel);
 
                     totalAngel += shift;
 
@@ -347,7 +339,13 @@ public class CircleSeekBar extends FrameLayout {
                 return true;
         }
 
-        return super.onTouchEvent(event);
+        return false;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        getParent().requestDisallowInterceptTouchEvent(true);
+        return true;
     }
 
     private void drawBackgroundCircle(Canvas canvas){
@@ -383,21 +381,27 @@ public class CircleSeekBar extends FrameLayout {
     }
 
     private float degrees(float value){
-        float oneDegree = (float)(maxValue) / 360;
+        float oneDegree = 360 / (float) (maxValue - minValue);
 
-        return value / oneDegree;
+        return (value - minValue) * oneDegree;
     }
 
     private int value(float degree){
-        float oneValue = 360f / maxValue;
+        float oneDegree = 360 / (float) (maxValue - minValue);
 
-        float value = degree / oneValue;
+        float tmp = degree / oneDegree;
 
-        if(value % 1 >= 0.5f){
-            return (int) ++value;
+        int result;
+
+        if(tmp % 1 >= 0.5f){
+            result = (int) (tmp + 1);
         } else {
-            return (int) value;
+            result = (int) tmp;
         }
+
+        value = minValue + result;
+
+        return value;
     }
 
     private float computeCos(float x, float y) {

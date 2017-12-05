@@ -15,6 +15,7 @@
         <item name="progressCircleLineColor">#007eff</item>
         <item name="dotRadius">19dp</item>
         <item name="dotColor">#007eff</item>
+        <item name="minValue">0</item>
         <item name="maxValue">100</item>
         <item name="value">30</item>
         <item name="textAppearance">@style/CircleProgressViewStyle.TextAppearance</item>
