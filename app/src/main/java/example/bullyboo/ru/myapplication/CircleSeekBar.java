@@ -131,6 +131,17 @@ public class CircleSeekBar extends FrameLayout {
 
         array.recycle();
 
+        if(minValue < maxValue){
+            Log.e("CircleSeekBarLog",
+                    "MIN VALUE CAN`T BE LESS MAX VALUE");
+            minValue = maxValue;
+        }
+        if(value > maxValue || value < minValue){
+            Log.e("CircleSeekBarLog",
+                    "VALUE CAN`T BE LESS OF MIN VALUE OR LARGER OF MAX VALUE");
+            value = minValue;
+        }
+
         backgroundCirclePaint = new Paint();
         backgroundCirclePaint.setColor(backgroundCircleLineColor);
         backgroundCirclePaint.setStrokeWidth(backgroundCircleLineWidth);
@@ -291,7 +302,7 @@ public class CircleSeekBar extends FrameLayout {
 
                     if(Math.abs(previousAngel - angel) > 180f){
                             if(value != minValue && value != maxValue){
-                            value = maxValue - previousAngel > maxValue / 2 ?
+                            value = maxValue - value > maxValue / 2 ?
                                     minValue : maxValue;
 
                             textView.setText(String.valueOf(value));
