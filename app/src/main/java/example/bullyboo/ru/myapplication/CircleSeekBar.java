@@ -131,9 +131,9 @@ public class CircleSeekBar extends FrameLayout {
 
         array.recycle();
 
-        if(minValue < maxValue){
+        if(minValue > maxValue){
             Log.e("CircleSeekBarLog",
-                    "MIN VALUE CAN`T BE LESS MAX VALUE");
+                    "MIN VALUE CAN`T BE LARGER OF MAX VALUE");
             minValue = maxValue;
         }
         if(value > maxValue || value < minValue){
