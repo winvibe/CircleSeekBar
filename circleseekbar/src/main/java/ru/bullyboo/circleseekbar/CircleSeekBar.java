@@ -1,4 +1,20 @@
-package example.bullyboo.ru.myapplication;
+/*
+ * Copyright (C) 2017 BullyBoo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package ru.bullyboo.circleseekbar;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -71,8 +87,19 @@ public class CircleSeekBar extends FrameLayout {
 
     private RectF progressArc;
 
-    private boolean isMeasureChanged = false;
-    private boolean isSizeChanged = false;
+    private interface Callback{
+        void onStartScrolling(int startValue);
+
+        void onEndScrolling(int endValue);
+    }
+
+    public interface OnValueChangedListener{
+        void onValueChanged(int value);
+    }
+
+    private Callback callback;
+
+    private OnValueChangedListener onValueChangedListener;
 
     public CircleSeekBar(Context context) {
         this(context, null);
@@ -209,16 +236,8 @@ public class CircleSeekBar extends FrameLayout {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        isMeasureChanged = true;
-    }
-
-    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
-        isSizeChanged = true;
 
         width = w;
         height = h;
@@ -265,11 +284,9 @@ public class CircleSeekBar extends FrameLayout {
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
 
-        if(isMeasureChanged || isSizeChanged){
-            drawBackgroundCircle(canvas);
-            drawProgressArc(canvas);
-            drawDot(canvas);
-        }
+        drawBackgroundCircle(canvas);
+        drawProgressArc(canvas);
+        drawDot(canvas);
     }
 
     private boolean isOnArc = false;
@@ -280,6 +297,9 @@ public class CircleSeekBar extends FrameLayout {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 isOnArc = isOnArc(event);
+                if(callback != null){
+                    callback.onStartScrolling(value);
+                }
                 return true;
             case MotionEvent.ACTION_MOVE:
                 if(isOnArc){
@@ -305,7 +325,14 @@ public class CircleSeekBar extends FrameLayout {
                             value = maxValue - value > maxValue / 2 ?
                                     minValue : maxValue;
 
-                            textView.setText(String.valueOf(value));
+                            if(textView != null){
+                                textView.setText(String.valueOf(value));
+                            }
+
+                            if(onValueChangedListener != null){
+                                onValueChangedListener.onValueChanged(value);
+                            }
+
                             invalidate();
                             return true;
                         }
@@ -337,21 +364,28 @@ public class CircleSeekBar extends FrameLayout {
                         value = value((float) angel);
                     }
 
-                    textView.setText(String.valueOf(value));
+                    if(textView != null){
+                        textView.setText(String.valueOf(value));
+                    }
 
-                    Log.d("seekBarLog", "totalAngel = " + angel);
+                    if(onValueChangedListener != null){
+                        onValueChangedListener.onValueChanged(value);
+                    }
+
                     invalidate();
                 }
                 return true;
             case MotionEvent.ACTION_UP:
                 isOnArc = false;
-//                findNearestValue();
-//                textView.setText(String.valueOf(value));
+                if(callback != null){
+                    callback.onEndScrolling(value);
+                }
                 return true;
         }
 
         return false;
     }
+
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -435,5 +469,110 @@ public class CircleSeekBar extends FrameLayout {
 
     private static float distance(float x1, float y1, float x2, float y2) {
         return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
+    public float getBackgroundCircleLineWidth() {
+        return backgroundCircleLineWidth;
+    }
+
+    public void setBackgroundCircleLineWidth(float backgroundCircleLineWidth) {
+        this.backgroundCircleLineWidth = backgroundCircleLineWidth;
+        invalidate();
+    }
+
+    public float getProgressCircleLineWidth() {
+        return progressCircleLineWidth;
+    }
+
+    public void setProgressCircleLineWidth(float progressCircleLineWidth) {
+        this.progressCircleLineWidth = progressCircleLineWidth;
+        invalidate();
+    }
+
+    public int getBackgroundCircleLineColor() {
+        return backgroundCircleLineColor;
+    }
+
+    public void setBackgroundCircleLineColor(int backgroundCircleLineColor) {
+        this.backgroundCircleLineColor = backgroundCircleLineColor;
+        invalidate();
+    }
+
+    public int getProgressCircleLineColor() {
+        return progressCircleLineColor;
+    }
+
+    public void setProgressCircleLineColor(int progressCircleLineColor) {
+        this.progressCircleLineColor = progressCircleLineColor;
+        invalidate();
+    }
+
+    public float getDotRadius() {
+        return dotRadius;
+    }
+
+    public void setDotRadius(float dotRadius) {
+        this.dotRadius = dotRadius;
+        invalidate();
+    }
+
+    public int getDotColor() {
+        return dotColor;
+    }
+
+    public void setDotColor(int dotColor) {
+        this.dotColor = dotColor;
+        invalidate();
+    }
+
+    public int getMaxValue() {
+        return maxValue;
+    }
+
+    public void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
+        invalidate();
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public void setMinValue(int minValue) {
+        this.minValue = minValue;
+        invalidate();
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+        invalidate();
+    }
+
+    public boolean isClockwise() {
+        return isClockwise;
+    }
+
+    public void setClockwise(boolean clockwise) {
+        isClockwise = clockwise;
+    }
+
+    public void setTextAppearance(int textAppearance) {
+        this.textAppearance = textAppearance;
+
+        if(textView != null){
+            textView.setTextAppearance(getContext(), textAppearance);
+        }
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
+
+    public void setOnValueChangedListener(OnValueChangedListener onValueChangedListener) {
+        this.onValueChangedListener = onValueChangedListener;
     }
 }
