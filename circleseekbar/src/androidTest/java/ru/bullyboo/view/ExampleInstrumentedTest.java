@@ -1,6 +1,5 @@
-package ru.bullyboo.circleseekbar;
+package ru.bullyboo.view;
 
-import android.content.Context;
 //import android.support.test.InstrumentationRegistry;
 //import android.support.test.runner.AndroidJUnit4;
 //

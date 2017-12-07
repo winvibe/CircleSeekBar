@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ru.bullyboo.circleseekbar;
+package ru.bullyboo.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

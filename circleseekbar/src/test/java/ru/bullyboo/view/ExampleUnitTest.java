@@ -1,4 +1,4 @@
-package ru.bullyboo.circleseekbar;
+package ru.bullyboo.view;
 
 //import org.junit.Test;
 //
