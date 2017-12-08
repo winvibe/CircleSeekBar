@@ -87,7 +87,7 @@ public class CircleSeekBar extends FrameLayout {
 
     private RectF progressArc;
 
-    private interface Callback{
+    public interface Callback{
         void onStartScrolling(int startValue);
 
         void onEndScrolling(int endValue);
@@ -308,15 +308,15 @@ public class CircleSeekBar extends FrameLayout {
                     double degrees = Math.acos(computeCos(event.getX(), event.getY())) * 180 / Math.PI;
                     if(!isClockwise){
                         if(event.getX() < width / 2){
-                            angel += degrees;
-                        } else {
                             angel -= degrees;
+                        } else {
+                            angel += degrees;
                         }
                     } else {
                         if(event.getX() < width / 2){
-                            angel -= degrees;
-                        } else {
                             angel += degrees;
+                        } else {
+                            angel -= degrees;
                         }
                     }
 
@@ -400,10 +400,10 @@ public class CircleSeekBar extends FrameLayout {
 
     private void drawProgressArc(Canvas canvas){
         if(isClockwise){
-            canvas.drawArc(progressArc, 270, -(degrees(value)),
+            canvas.drawArc(progressArc, 270, degrees(value),
                     false, progressCirclePaint);
         } else {
-            canvas.drawArc(progressArc, 270, degrees(value),
+            canvas.drawArc(progressArc, 270, -(degrees(value)),
                     false, progressCirclePaint);
         }
 
@@ -413,9 +413,9 @@ public class CircleSeekBar extends FrameLayout {
         float degrees;
 
         if(isClockwise){
-            degrees = - degrees(value) - 90;
-        } else {
             degrees = degrees(value) - 90;
+        } else {
+            degrees = - degrees(value) - 90;
         }
 
         float x = (float) (Math.cos(Math.toRadians(degrees)) * baseCircleRadius + centerX);
@@ -550,6 +550,14 @@ public class CircleSeekBar extends FrameLayout {
     public void setValue(int value) {
         this.value = value;
         invalidate();
+
+        if(textView != null){
+            textView.setText(String.valueOf(value));
+        }
+
+        if(onValueChangedListener != null){
+            onValueChangedListener.onValueChanged(value);
+        }
     }
 
     public boolean isClockwise() {

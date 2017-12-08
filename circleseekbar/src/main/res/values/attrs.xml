@@ -13,7 +13,6 @@
         <attr name="minValue" format="integer"/>
         <attr name="maxValue" format="integer"/>
         <attr name="value" format="integer"/>
-        <attr name="text" format="string"/>
         <attr name="textAppearance" format="reference"/>
         <attr name="showCounter" format="boolean"/>
         <attr name="isClockwise" format="boolean"/>
