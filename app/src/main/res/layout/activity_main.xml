@@ -11,6 +11,32 @@
         android:layout_height="300dp"
         android:layout_centerInParent="true"
         app:maxValue="100"
-        app:value="30"/>
+        app:showCounter="false"
+        app:value="30">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="my Own Text"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="my Own button"/>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </ru.bullyboo.view.CircleSeekBar>
 
 </RelativeLayout>
