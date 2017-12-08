@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-apply from: 'C:\\Users\\BullyBoo\\AndroidStudioProjects\\CircleSeekBar\\constants.gradle'
+//apply from: 'C:\\Users\\BullyBoo\\AndroidStudioProjects\\CircleSeekBar\\constants.gradle'
 
 android {
     compileSdkVersion 26

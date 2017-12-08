@@ -320,7 +320,7 @@ public class CircleSeekBar extends FrameLayout {
                         }
                     }
 
-                    if(Math.abs(previousAngel - angel) > 1800f){
+                    if(Math.abs(previousAngel - angel) > 180f){
                             if(value != minValue && value != maxValue){
                             value = maxValue - value > (maxValue - minValue) / 2 ?
                                     minValue : maxValue;
