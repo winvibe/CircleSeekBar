@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CircleSeekBar.iml" filepath="$PROJECT_DIR$/CircleSeekBar.iml" />
       <module fileurl="file://C:\Users\bullyboo\AndroidStudioProjects\MyApplication2\.idea\CircleSeekBar.iml" filepath="C:\Users\bullyboo\AndroidStudioProjects\MyApplication2\.idea\CircleSeekBar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MyApplication2.iml" filepath="$PROJECT_DIR$/MyApplication2.iml" />
       <module fileurl="file://C:\Users\BullyBoo\AndroidStudioProjects\CircleSeekBar\MyApplication2.iml" filepath="C:\Users\BullyBoo\AndroidStudioProjects\CircleSeekBar\MyApplication2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/circleseekbar/circleseekbar.iml" filepath="$PROJECT_DIR$/circleseekbar/circleseekbar.iml" />

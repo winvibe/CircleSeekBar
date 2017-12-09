@@ -5,7 +5,7 @@ Custom View. The circle seek bar.
 
 Gradle:
 ```groovy
-compile 'ru.bullyboo.view:circleseekbar:1.0.2'
+compile 'ru.bullyboo.view:circleseekbar:1.0.3'
 ```
 
 Maven:
@@ -13,7 +13,7 @@ Maven:
 <dependency>
   <groupId>ru.bullyboo.view</groupId>
   <artifactId>circleseekbar</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <type>pom</type>
 </dependency>
 ```
